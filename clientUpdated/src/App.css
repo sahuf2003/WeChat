@@ -1,0 +1,88 @@
+.App {
+  text-align: center;
+}
+
+.titleStyle {
+  font-family: "Pattaya", sans-serif;
+  font-weight: 400 !important;
+  color: #d90266 !important;
+}
+.btn-color{
+  position: relative;
+  background: #fff;
+  color: #fff;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  transition: 0.5s;
+}
+.btn-color:hover{
+  background: #d90266;
+  letter-spacing: 0.25em;
+  box-shadow: 0 0 35px #d90266;
+}
+.btn-color:before{
+  content: 'Log In';
+  position: absolute;
+  inset: 2px;
+  background:black ;
+}
+.btn-color span {
+  position: relative;
+  z-index: 1;
+}
+.btn-color i {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+.btn-color i ::before{
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 80%;
+  width: 10px;
+  height: 4px;
+  background: black;
+  transform: translateX(-50%) skewX(325deg);
+}
+
+.btnStyle {
+  width: 30%;
+  height: 7%;
+  margin-top: 20vw;
+  background-color: #d90266 !important;
+  border-radius: 30px !important;
+  border: #d90266 !important;
+}
+.btnStyle:hover {
+  width: 30%;
+  height: 7%;
+  margin-top: 20vw;
+  background-color: #d90266 !important;
+  border-radius: 30px;
+  border: #d90266 !important;
+}
+
+.inputStylef {
+  border: 2px solid #d90266 !important;
+  border: 3rem !important;
+  border-radius: 0.5rem !important;
+}
+
+.joinbtn{
+  width: 20%;
+  height: 7%;
+  margin-top: 5rem;
+  margin-bottom: 5rem;
+  background-color: transparent !important;
+  color: #d90266 !important;
+  border: 2px solid #d90266 !important;
+  border-radius: 2rem;
+  padding: 0.5rem 0rem;
+}
+.joinbtn:hover{
+  border-color: #d90266 !important;
+  background-color: #d90266 !important;
+  color: white !important;
+}
+
