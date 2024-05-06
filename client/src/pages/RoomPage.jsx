@@ -1,14 +1,20 @@
-import React, { useEffect, useCallback, useState } from "react";
+import React, { useEffect, useCallback, useState, useRef } from "react";
 import ReactPlayer from "react-player";
 import peerService from "../service/peerService";
 import { useSocket } from "../context/SocketProvider";
+import Button from 'react-bootstrap/Button';
+import { Container } from "react-bootstrap";
 
 const RoomPage = () => {
     const socket = useSocket();
     const [remoteSocketId, setRemoteSocketId] = useState(null);
     const [myStream, setMyStream] = useState();
     const [remoteStream, setRemoteStream] = useState();
-    const [mysocket, setMysocket] = useState();
+    const [myAge, setMyAge] = useState(null);
+    const [remoteAge, setRemoteAge] = useState(null);
+    const videoRef = useRef(null);
+    const canvasRef = useRef(null);
+
     const handleUserJoined = useCallback(({ email, id }) => {
         console.log(`Email ${email} joined room`);
         setRemoteSocketId(id);
@@ -92,7 +98,10 @@ const RoomPage = () => {
         socket.on("call:accepted", handleCallAccepted);
         socket.on("peer:nego:needed", handleNegoNeedIncomming);
         socket.on("peer:nego:final", handleNegoNeedFinal);
-
+        socket.on("age:update", ({ age }) => {
+            setRemoteAge(age);
+            console.log(remoteAge);
+        });
         return () => {
             socket.off("user:joined", handleUserJoined);
             socket.off("incoming:call", handleIncommingCall);
@@ -100,46 +109,98 @@ const RoomPage = () => {
             socket.off("peer:nego:needed", handleNegoNeedIncomming);
             socket.off("peer:nego:final", handleNegoNeedFinal);
         };
-    }, [
-        socket,
-        handleUserJoined,
-        handleIncommingCall,
-        handleCallAccepted,
-        handleNegoNeedIncomming,
-        handleNegoNeedFinal,
-    ]);
+    }, [socket, handleUserJoined, handleIncommingCall, handleCallAccepted, handleNegoNeedIncomming, handleNegoNeedFinal, remoteAge]);
+
+    const captureFrameAndPredictAge = useCallback(() => {
+        if (!videoRef.current || !canvasRef.current) return;
+
+        const canvas = canvasRef.current;
+        const context = canvas.getContext("2d");
+        context.drawImage(videoRef.current.getInternalPlayer(), 0, 0, canvas.width, canvas.height);
+        const imageData = canvas.toDataURL("image/jpeg");
+
+        fetch("http://localhost:5000/detect_age", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ image: imageData })
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.ages && data.ages.length > 0) {
+                    const firstAge = data.ages[0];
+                    setMyAge(firstAge);
+                    setRemoteAge(firstAge);
+                    socket.emit("age:update", { age: firstAge });
+                }
+            })
+            .catch(error => {
+                console.error("Error detecting age:", error);
+            });
+    }, []);
+
+    useEffect(() => {
+        if (myStream) {
+            const intervalId = setInterval(captureFrameAndPredictAge, 1000); // Capture frame every second
+            return () => clearInterval(intervalId);
+        }
+    }, [myStream, captureFrameAndPredictAge]);
 
     return (
-        <div>
-            <h2>Room Page</h2>
-            <h4>{remoteSocketId ? "Connected" : "No one in room"}</h4>
-            {myStream && <button onClick={sendStreams}>Show Video</button>}
-            {remoteSocketId && <button onClick={handleCallUser}>CALL</button>}
-            {myStream && (
-                <>
-                    <h4>My Video</h4>
-                    <ReactPlayer
-                        playing
-                        muted
-                        height="100px"
-                        width="200px"
-                        url={myStream}
-                    />
-                </>
-            )}
-            {remoteStream && (
-                <>
-                    <h4>Remote Video</h4>
-                    <ReactPlayer
-                        playing
-                        muted
-                        height="100px"
-                        width="200px"
-                        url={remoteStream}
-                    />
-                </>
-            )}
-        </div>
+        <Container className="bg-dark d-flex flex-column align-items-center justify-content-center" fluid>
+            <h3 className="text-white pt-5">Room Page</h3>
+            <h4 className="text-white">{remoteSocketId ? "Connected" : "No one in room"}</h4>
+            {myStream && <button onClick={sendStreams} className="joinbtn">Show Video</button>}
+            {remoteSocketId && <button onClick={handleCallUser} className="joinbtn">CALL</button>}
+            <div className="d-flex justify-content-center">
+                {myStream && (
+                    <div style={{ textAlign: 'left', marginRight: '20px' }}>
+                        <br />
+                        <h5 className="text-white">My Video</h5>
+                        <ReactPlayer
+                            ref={videoRef}
+                            playing
+                            muted
+                            url={myStream}
+                            width="300px"
+                            height="auto"
+                        />
+                        {myAge && (
+                            <h4 className="text-white">Your Age: {myAge}</h4>
+                        )}
+                        <canvas
+                            ref={canvasRef}
+                            style={{ display: "none" }}
+                            width={640}
+                            height={480}
+                        />
+                    </div>
+                )}
+                {remoteStream && (
+                    <div style={{ textAlign: 'left', marginLeft: '40px' }}>
+                        <br/>
+                        <h5 className="text-white">Remote Video</h5>
+                        <ReactPlayer
+                            playing
+                            muted
+                            height="auto"
+                            width="300px"
+                            url={remoteStream}
+                        />
+                        {remoteAge && (
+                            <h4 className="text-white">Remote Age: {remoteAge}</h4>
+                        )}
+                    </div>
+                )}
+                <br />
+            </div>
+        </Container>
     );
 };
 

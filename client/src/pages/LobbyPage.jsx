@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSocket } from "../context/SocketProvider";
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
 
 const LobbyScreen = () => {
   const [email, setEmail] = useState("");
@@ -33,28 +34,48 @@ const LobbyScreen = () => {
   }, [socket, handleJoinRoom]);
 
   return (
-    <div>
-      <h1>Lobby</h1>
+    <Container className="bg-dark" fluid>
+      <h1 className="text-white pt-5">Lobby</h1>
       <form onSubmit={handleSubmitForm}>
-        <label htmlFor="email">Email ID</label>
-        <input
-          type="email"
-          id="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+        <Row className="d-flex align-items-center justify-content-center pt-5">
+          <Col lg={2}>
+          <label htmlFor="email" className="text-white fs-4">
+            Email ID
+          </label>
+          </Col>
+          <Col lg={3}>
+          <Form.Control
+            type="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="inputStylef"
+          />
+          </Col>
+        </Row>
         <br />
-        <label htmlFor="room">Room Number</label>
-        <input
+        <Row className="d-flex align-items-center justify-content-center pt-3">
+        <Col lg={2}>
+        <label htmlFor="room" className="text-white fs-4 mt-4 ">
+          Room Number
+        </label>
+        </Col>
+        <Col lg={3}>
+        <Form.Control
           type="text"
           id="room"
           value={room}
           onChange={(e) => setRoom(e.target.value)}
-        />
+          className="inputStylef"
+          />
+        </Col>
+          </Row>
         <br />
-        <button>Join</button>
+        <button className="joinbtn">
+          Join
+        </button>
       </form>
-    </div>
+    </Container>
   );
 };
 

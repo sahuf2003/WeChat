@@ -47,5 +47,12 @@ io.on("connection", (socket) => {
     io.to(to).emit("peer:nego:final", { from: socket.id, ans });
   });
 
-
+  socket.on("age:update", ({ age }) => {
+    const email = socketIdtoEmailMap.get(socket.id);
+    const room = email && email.room;
+    if (room) {
+      io.to(room).emit("age:update", { email, age });
+    }
+  });
+  
 });

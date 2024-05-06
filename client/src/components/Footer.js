@@ -1,27 +1,22 @@
 import React from 'react'
-import { Col, Container, Row } from 'react-bootstrap'
-import { FaFacebookF } from "react-icons/fa";
-import { FaInstagram } from "react-icons/fa";
-import { FaLinkedinIn } from "react-icons/fa";
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import { FaRegCopyright } from "react-icons/fa";
 
 const Footer = () => {
-    const iconStyle = {
-        color: "white",
-        height: "2.1rem",
-        width: "2.1rem"
-    }
   return (
-    <Container fluid className='bg-dark h-30 mt-5'>
-        <Row>
-            <Col className='my-5'>
-            <FaFacebookF style={iconStyle} className='mx-3'/>
-            <FaInstagram style={iconStyle} className='mx-3'/>
-            <FaLinkedinIn style={iconStyle} className='mx-3'/>
-            <h3 className="text-info mt-4" >SecureSway</h3>
-            </Col>
-        </Row>
+    <Container fluid style={{backgroundColor: "grey",padding: "1rem"}}>
+        <h5 className='titleStyle'>WeChat</h5>
+      <Row>
+        <Col lg={12} md={3}>Terms | Privacy</Col>
+        <Col lg={12} md={3}>Customer Service</Col>
+        <Col  lg={12} md={3}>Founders: Mohammad Sahuf Zaid Shaikh, Salman Shaikh, Kaif Shaikh, Shruti Pendem</Col>
+        <Col lg={12} md={3}>email : help@WeChat.com | Address : 517, Byculla, Mumbai, India</Col>
+        <Col lg={12} md={3}> <FaRegCopyright />2024 Hyperconnect LLC. All rights reserved.</Col>
+      </Row>
     </Container>
   )
 }
 
-export default Footer
+export default Footer;
