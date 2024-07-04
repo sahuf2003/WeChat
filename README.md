@@ -161,4 +161,3 @@ Access WeChat in your browser at `http://localhost:3000`.
     </td>
   </tr>
 </table>
-```
