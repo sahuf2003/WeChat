@@ -1,5 +1,3 @@
----
-
 # <p align="center">WeChat</p>
 
 ## Table of Contents
