@@ -35,7 +35,7 @@ Future Roadmap:
 * Dating
 
 
-## Creators
+## <p align="center">Creators</p>
 
 <table align="center">
   <tr>
