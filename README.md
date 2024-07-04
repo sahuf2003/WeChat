@@ -13,7 +13,7 @@
 ## Introduction
 Welcome to WeChat, an innovative video chat web application designed for seamless real-time communication. WeChat boasts a user-friendly interface and utilizes robust technologies like Socket.io and WebRTC. A standout feature is real-time age detection, powered by TensorFlow, Keras, and CNN models, enhancing interactivity. Join us in making digital communication smarter and more intuitive with WeChat, where future updates will include parental controls and support for remote education.
 
-## <p align="center">Features</p>
+## Features
 
 - **Video Chat**: Seamless video chat using Socket.io and WebRTC.
 - **User-Friendly Interface**: Intuitive design for a smooth user experience.
@@ -127,7 +127,7 @@ Access WeChat in your browser at `http://localhost:3000`.
 - **Parental Controls**: Implement features to ensure safe usage for children.
 - **Remote Education**: Add support for educational purposes.
 
-## <p align="center">Creators</p>
+## Creators
 
 <table align="center">
   <tr>
