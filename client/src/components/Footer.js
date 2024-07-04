@@ -11,7 +11,7 @@ const Footer = () => {
       <Row>
         <Col lg={12} md={3}>Terms | Privacy</Col>
         <Col lg={12} md={3}>Customer Service</Col>
-        <Col  lg={12} md={3}>Founders: Mohammad Sahuf Zaid Shaikh, Salman Shaikh, Kaif Shaikh, Shruti Pendem</Col>
+        <Col  lg={12} md={3}>Founders: Mohammad Sahuf Zahid Shaikh, Salman Shaikh, Kaif Shaikh, Shruti Pendem</Col>
         <Col lg={12} md={3}>email : help@WeChat.com | Address : 517, Byculla, Mumbai, India</Col>
         <Col lg={12} md={3}> <FaRegCopyright />2024 Hyperconnect LLC. All rights reserved.</Col>
       </Row>
