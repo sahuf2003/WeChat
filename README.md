@@ -1,36 +1,3 @@
----
-
-# <p align="center">WeChat</p>
-
-## Table of Contents
-- [Introduction](#introduction)
-- [Features](#features)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Project Screenshots](#project-screenshots)
-- [Project Setup](#project-setup)
-- [Dependencies](#dependencies)
-- [Future Roadmap](#future-roadmap)
-- [Creators](#creators)
-
-## <p align="center">Introduction</p>
-Welcome to WeChat, a cutting-edge video chat web application designed for seamless and engaging real-time communication. WeChat features a user-friendly interface and robust technology powered by Socket.io and WebRTC. One standout feature is real-time age detection, utilizing a sophisticated model built with TensorFlow, Keras, and CNN. This enhances interactivity and can be used for various applications. Join us in making digital communication smarter and more intuitive with WeChat, and stay tuned for exciting future features like parental controls, remote education support, and a dating module.
-
-## <p align="center">Features</p>
-
-- **Video Chat**: Seamless video chat functionality using Socket.io and WebRTC.
-- **User-Friendly Interface**: Intuitive and easy-to-navigate design for a smooth user experience.
-- **Real-Time Age Detection**: Advanced age detection using a model built with TensorFlow, Keras, and CNN.
-- **High-Quality Connection**: Reliable and high-quality video communication.
-- **Interactive Elements**: Enhanced interactivity through intelligent features.
-- **Future Enhancements**:
-  - **Parental Controls**: Ensuring safe usage for children.
-  - **Remote Education Support**: Tools and features for educational purpose.
-
-## <p align="center">Installataion</p>
-Certainly! Here’s the revised installation and setup section of your README, including the step to install Node.js modules for your frontend:
-
----
 
 ## Installation and Setup
 
@@ -38,9 +5,12 @@ To get started with WeChat, follow these steps:
 
 ### Step 1: Install Python Dependencies
 
-Ensure you have Python installed. Navigate to your project directory and install the necessary Python dependencies specified in `requirements.txt`:
+Ensure you have Python installed. Navigate to your project directory and install the necessary Python dependencies specified in 
+ml folder 
+
 
 ```bash
+cd ml
 pip install -r requirements.txt
 ```
 
@@ -49,17 +19,20 @@ pip install -r requirements.txt
 Navigate to the folder where your age detection script is located. Replace `python age_detection.py` with the appropriate command to run your age detection script:
 
 ```bash
-cd path/to/age_detection_folder
-python age_detection.py
+cd ml
+python main.py
 ```
 
 ### Step 3: Start WebRTC Server
 
-Navigate to the folder where your WebRTC server is located. Adjust the command `node server.js` according to your server setup:
+Navigate to the folder where your WebRTC server is located. Adjust the command `nodemon index.js` according to your server setup:
 
 ```bash
-cd path/to/webrtc_server_folder
-node server.js
+cd server
+npm install
+```
+```bash
+nodemon index.js
 ```
 
 ### Step 4: Install Node.js Modules for Frontend
@@ -67,7 +40,7 @@ node server.js
 Navigate to the folder where your frontend is located and install the required Node.js modules:
 
 ```bash
-cd path/to/frontend_folder
+cd client
 npm install
 ```
 
